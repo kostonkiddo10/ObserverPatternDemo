@@ -1,0 +1,258 @@
+@startuml
+
+/' diagram meta data start
+config=StructureConfiguration;
+{
+  "projectClassification": {
+    "searchMode": "OpenProject", // OpenProject, AllProjects
+    "includedProjects": "",
+    "pathEndKeywords": "*.impl",
+    "isClientPath": "",
+    "isClientName": "",
+    "isTestPath": "",
+    "isTestName": "",
+    "isMappingPath": "",
+    "isMappingName": "",
+    "isDataAccessPath": "",
+    "isDataAccessName": "",
+    "isDataStructurePath": "",
+    "isDataStructureName": "",
+    "isInterfaceStructuresPath": "",
+    "isInterfaceStructuresName": "",
+    "isEntryPointPath": "",
+    "isEntryPointName": ""
+  },
+  "graphRestriction": {
+    "classPackageExcludeFilter": "",
+    "classPackageIncludeFilter": "",
+    "classNameExcludeFilter": "",
+    "classNameIncludeFilter": "",
+    "methodNameExcludeFilter": "",
+    "methodNameIncludeFilter": "",
+    "removeByInheritance": "", // inheritance/annotation based filtering is done in a second step
+    "removeByAnnotation": "",
+    "removeByClassPackage": "", // cleanup the graph after inheritance/annotation based filtering is done
+    "removeByClassName": "",
+    "cutMappings": false,
+    "cutEnum": true,
+    "cutTests": true,
+    "cutClient": true,
+    "cutDataAccess": false,
+    "cutInterfaceStructures": false,
+    "cutDataStructures": false,
+    "cutGetterAndSetter": true,
+    "cutConstructors": true
+  },
+  "graphTraversal": {
+    "forwardDepth": 6,
+    "backwardDepth": 6,
+    "classPackageExcludeFilter": "",
+    "classPackageIncludeFilter": "",
+    "classNameExcludeFilter": "",
+    "classNameIncludeFilter": "",
+    "methodNameExcludeFilter": "",
+    "methodNameIncludeFilter": "",
+    "hideMappings": false,
+    "hideDataStructures": false,
+    "hidePrivateMethods": true,
+    "hideInterfaceCalls": true, // indirection: implementation -> interface (is hidden) -> implementation
+    "onlyShowApplicationEntryPoints": false // root node is included
+  },
+  "details": {
+    "aggregation": "GroupByClass", // ByClass, GroupByClass, None
+    "showClassGenericTypes": true,
+    "showMethods": true,
+    "showMethodParameterNames": true,
+    "showMethodParameterTypes": true,
+    "showMethodReturnType": true,
+    "showPackageLevels": 2,
+    "showDetailedClassStructure": true
+  },
+  "rootClass": "CurrentConditionsDisplay"
+}
+diagram meta data end '/
+
+
+
+digraph g {
+    rankdir="TB"
+    splines=polyline
+    
+
+'nodes 
+subgraph cluster_1484881447 { 
+   	label=ForecastDisplay
+	labeljust=l
+	fillcolor="#ececec"
+	style=filled
+   
+   ForecastDisplay1484881447[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)ForecastDisplay</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   currentPressure: float [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   lastPressure: float [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   weatherData: WeatherData [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ display()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ update(temp: float, humidity: float, pressure: float, wind: float)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+} 
+
+subgraph cluster_1745893852 { 
+   	label=WindChill
+	labeljust=l
+	fillcolor="#ececec"
+	style=filled
+   
+   WindChill1745893852[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)WindChill</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   weatherData: WeatherData [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   windChill: float [1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ computeWindchillIndex(temp: float, wind: float): float</TD></TR>
+<TR><TD ALIGN="LEFT" >+ display()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ update(temp: float, humidity: float, pressure: float, wind: float)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+} 
+
+subgraph cluster_1792352913 { 
+   	label=CurrentConditionsDisplay
+	labeljust=l
+	fillcolor="#ececec"
+	style=filled
+   
+   CurrentConditionsDisplay1792352913[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)CurrentConditionsDisplay</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   humidity: float [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   temperature: float [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   weatherData: Subject [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   wind: float [1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ display()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ update(temperature: float, humidity: float, pressure: float, wind: float)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+} 
+
+subgraph cluster_1794189726 { 
+   	label=WeatherData
+	labeljust=l
+	fillcolor="#ececec"
+	style=filled
+   
+   WeatherData1794189726[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)WeatherData</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   humidity: float [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   observers: ArrayList&lt;Observer&gt; [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   pressure: float [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   temperature: float [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   wind: float [1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ measurementsChanged()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ notifyObservers()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ registerObserver(o: Observer)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ removeObserver(o: Observer)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+} 
+
+subgraph cluster_2072199006 { 
+   	label=HeatIndex
+	labeljust=l
+	fillcolor="#ececec"
+	style=filled
+   
+   HeatIndex2072199006[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)HeatIndex</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   heatIndex: float [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   weatherData: WeatherData [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >- computeHeatIndex(t: float, rh: float): float</TD></TR>
+<TR><TD ALIGN="LEFT" >+ display()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ update(temp: float, humidity: float, pressure: float, wind: float)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+} 
+
+subgraph cluster_2073379327 { 
+   	label=StatisticsDisplay
+	labeljust=l
+	fillcolor="#ececec"
+	style=filled
+   
+   StatisticsDisplay2073379327[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)StatisticsDisplay</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   maxTemp: float [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   minTemp: float [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   numReadings: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   tempSum: float [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   weatherData: WeatherData [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ display()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ update(temp: float, humidity: float, pressure: float, wind: float)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+} 
+
+'edges    
+CurrentConditionsDisplay1792352913 -> ForecastDisplay1484881447[arrowhead=none, arrowtail=empty, dir=both];
+CurrentConditionsDisplay1792352913 -> HeatIndex2072199006[arrowhead=none, arrowtail=empty, dir=both];
+CurrentConditionsDisplay1792352913 -> StatisticsDisplay2073379327[arrowhead=none, arrowtail=empty, dir=both];
+CurrentConditionsDisplay1792352913 -> WeatherData1794189726[arrowhead=none, arrowtail=empty, dir=both];
+CurrentConditionsDisplay1792352913 -> WeatherData1794189726[label="weatherData
+[0..1]"];
+CurrentConditionsDisplay1792352913 -> WindChill1745893852[arrowhead=none, arrowtail=empty, dir=both];
+ForecastDisplay1484881447 -> WeatherData1794189726[label="weatherData
+[0..1]"];
+HeatIndex2072199006 -> WeatherData1794189726[label="weatherData
+[0..1]"];
+StatisticsDisplay2073379327 -> WeatherData1794189726[label="weatherData
+[0..1]"];
+WeatherData1794189726 -> WindChill1745893852[label="observers
+[0..*]"];
+WindChill1745893852 -> CurrentConditionsDisplay1792352913[arrowhead=none, arrowtail=empty, dir=both];
+WindChill1745893852 -> ForecastDisplay1484881447[arrowhead=none, arrowtail=empty, dir=both];
+WindChill1745893852 -> HeatIndex2072199006[arrowhead=none, arrowtail=empty, dir=both];
+WindChill1745893852 -> StatisticsDisplay2073379327[arrowhead=none, arrowtail=empty, dir=both];
+WindChill1745893852 -> WeatherData1794189726[label="weatherData
+[0..1]"];
+    
+}
+@enduml
